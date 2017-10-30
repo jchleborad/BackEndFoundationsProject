@@ -20,14 +20,14 @@ namespace ContosoUniversity.Data
 
             var students = new Student[]
             {
-            new Student{FirstMidName="Kevin",LastName="Melvin",EnrollmentDate=DateTime.Parse("2017-09-01")},
-            new Student{FirstMidName="Christi",LastName="Knapp",EnrollmentDate=DateTime.Parse("2017-10-01")},
-            new Student{FirstMidName="Ken",LastName="Auger",EnrollmentDate=DateTime.Parse("2017-08-01")},
-            new Student{FirstMidName="Gerald",LastName="Heeren",EnrollmentDate=DateTime.Parse("2017-09-30")},
-            new Student{FirstMidName="Mike",LastName="Montagna",EnrollmentDate=DateTime.Parse("2017-08-31")},
-            new Student{FirstMidName="Cindy",LastName="Bennett",EnrollmentDate=DateTime.Parse("2017-10-31")},
-            new Student{FirstMidName="Angie",LastName="Robinson",EnrollmentDate=DateTime.Parse("2017-07-17")},
-            new Student{FirstMidName="Doug",LastName="Besmer",EnrollmentDate=DateTime.Parse("2017-11-01")}
+            new Student{FirstMidName="Kevin",LastName="Melvin",EnrollmentDate=DateTime.Parse("2017-09-01"),EmailAddress="kevinM@example.com"},
+            new Student{FirstMidName="Christi",LastName="Knapp",EnrollmentDate=DateTime.Parse("2017-10-01"),EmailAddress="christiK@example.com"},
+            new Student{FirstMidName="Ken",LastName="Auger",EnrollmentDate=DateTime.Parse("2017-08-01"),EmailAddress="kenA@example.com"},
+            new Student{FirstMidName="Gerald",LastName="Heeren",EnrollmentDate=DateTime.Parse("2017-09-30"),EmailAddress="geraldH@example.com"},
+            new Student{FirstMidName="Mike",LastName="Montagna",EnrollmentDate=DateTime.Parse("2017-08-31"),EmailAddress="mikeM@example.com"},
+            new Student{FirstMidName="Cindy",LastName="Bennett",EnrollmentDate=DateTime.Parse("2017-10-31"),EmailAddress="cindyB@example.com"},
+            new Student{FirstMidName="Angie",LastName="Robinson",EnrollmentDate=DateTime.Parse("2017-07-17"),EmailAddress="angieR@example.com"},
+            new Student{FirstMidName="Doug",LastName="Besmer",EnrollmentDate=DateTime.Parse("2017-11-01"),EmailAddress="dougB@example.com"}
             };
             foreach (Student s in students)
             {
@@ -65,6 +65,9 @@ namespace ContosoUniversity.Data
             new Enrollment{StudentID=5,CourseID=4041,Grade=Grade.C},
             new Enrollment{StudentID=6,CourseID=1045},
             new Enrollment{StudentID=7,CourseID=3141,Grade=Grade.A},
+            new Enrollment{StudentID=8,CourseID=1045,Grade=Grade.A},
+            new Enrollment{StudentID=8,CourseID=2042,Grade=Grade.C},
+
             };
             foreach (Enrollment e in enrollments)
             {

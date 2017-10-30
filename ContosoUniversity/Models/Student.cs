@@ -9,6 +9,9 @@ namespace ContosoUniversity.Models
         public string LastName { get; set; }
         public string FirstMidName { get; set; }
         public DateTime EnrollmentDate { get; set; }
+        
+        //Add Email Address to Project
+        public string EmailAddress { get; set; }
 
         public ICollection<Enrollment> Enrollments { get; set; } //holds all enrollments related to the student (one to many [student to enrollment])
     }
