@@ -20,10 +20,64 @@ namespace ContosoUniversity.Controllers
         }
 
         // GET: Students
-        public async Task<IActionResult> Index()
+        //Provide a hyperlink to Name & Date columns and sort descending or ascending
+        //by cliking on the column title
+        //Add searchString...
+        public async Task<IActionResult> Index(
+            //add a page number parameter, a current sort order parameter, 
+            //and a current filter parameter to the method signature
+            string sortOrder,
+            string currentFilter,
+            string searchString,
+            int? page)
         {
-            //Displays all students in the database
-            return View(await _context.Students.ToListAsync());
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+
+            //reset the page to 1 if the search string is changed
+            //during paging
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+
+            var students = from s in _context.Students
+                           select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                students = students.Where(s => s.LastName.Contains(searchString)
+                                       || s.FirstMidName.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    students = students.OrderByDescending(s => s.LastName);
+                    break;
+                case "Date":
+                    students = students.OrderBy(s => s.EnrollmentDate);
+                    break;
+                case "date_desc":
+                    students = students.OrderByDescending(s => s.EnrollmentDate);
+                    break;
+                default:
+                    students = students.OrderBy(s => s.LastName);
+                    break;
+            }
+
+            //set page size, and...
+            //convert the query to a single page in a collection type
+            //that supports paging
+            //[page ?? 1] means to return the value of page if it has a value,
+            //or return 1 if page is null
+            int pageSize = 4;
+            return View(await PaginatedList<Student>.CreateAsync(students.AsNoTracking(), page ?? 1, pageSize));
         }
 
         // GET: Students/Details/5
@@ -115,7 +169,7 @@ namespace ContosoUniversity.Controllers
             if (await TryUpdateModelAsync<Student>(
                 studentToUpdate,
                 "",
-                s => s.FirstMidName, s => s.LastName, s => s.EnrollmentDate))
+                s => s.FirstMidName, s => s.LastName, s => s.EnrollmentDate, s => s.EmailAddress))
             {
                 try
                 {
